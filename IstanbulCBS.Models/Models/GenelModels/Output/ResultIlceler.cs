@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IstanbulCBS.Models.Models.TestModels.Output
+namespace IstanbulCBS.Models.Models.GenelModels.Output
 {
     public class ResultIlceler
     {
-        public string geometry { get; set; }
+        public int id { get; set; }
         public string ilceAdi { get; set; }
     }
 }

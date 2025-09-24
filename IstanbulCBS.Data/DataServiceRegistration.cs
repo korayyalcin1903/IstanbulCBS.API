@@ -25,7 +25,7 @@ namespace IstanbulCBS.Data
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ITestRepository, TestRepository>();
+            services.AddScoped<IGenelRepository, GenelRepository>();
 
             return services;
         }

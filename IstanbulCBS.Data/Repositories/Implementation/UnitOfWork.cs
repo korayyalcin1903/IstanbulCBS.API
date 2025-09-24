@@ -29,9 +29,9 @@ namespace IstanbulCBS.Data.Repositories.Implementation
 
 
         #region Repositories
-        private readonly ITestRepository? _testRepository;
+        private readonly IGenelRepository? _genelRepository;
 
-        public ITestRepository TestRepository => _testRepository ?? new TestRepository(this);
+        public IGenelRepository GenelRepository => _genelRepository ?? new GenelRepository(this);
 
         #endregion Repositories
 

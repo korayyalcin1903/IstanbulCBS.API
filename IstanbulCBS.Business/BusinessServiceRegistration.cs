@@ -13,7 +13,7 @@ namespace IstanbulCBS.Business
     {
         public static IServiceCollection AddBusinessService(this IServiceCollection services)
         {
-            services.AddScoped<ITestBusiness, TestBusiness>();
+            services.AddScoped<IGenelBusiness, GenelBusiness>();
             return services;
         }
     }

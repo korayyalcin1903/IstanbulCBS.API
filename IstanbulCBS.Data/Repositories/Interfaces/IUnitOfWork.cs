@@ -13,7 +13,7 @@ namespace IstanbulCBS.Data.Repositories.Interfaces
         IDbTransaction Transaction { get; }
 
         #region Repositories
-        ITestRepository TestRepository { get; }
+        IGenelRepository GenelRepository { get; }
         #endregion Repositories
 
         void BeginTransaction();

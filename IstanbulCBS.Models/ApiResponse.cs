@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IstanbulCBS.Models
 {
@@ -10,20 +6,22 @@ namespace IstanbulCBS.Models
     {
         public bool Success { get; set; }
         public string? Message { get; set; }
+        public string? Error { get; set; }
 
         public ApiResponse() { }
 
-        public ApiResponse(bool success, string? message = null)
+        public ApiResponse(bool success, string? message = null, string? error = null)
         {
             Success = success;
             Message = message;
+            Error = error;
         }
 
         public static ApiResponse Ok(string? message = null)
             => new ApiResponse(true, message);
 
-        public static ApiResponse Fail(string? message = null)
-            => new ApiResponse(false, message);
+        public static ApiResponse Fail(string? message = null, string? error = null)
+            => new ApiResponse(false, message, error);
     }
 
     public class ApiResponse<T> : ApiResponse
@@ -32,8 +30,8 @@ namespace IstanbulCBS.Models
 
         public ApiResponse() { }
 
-        public ApiResponse(bool success, T? data = default, string? message = null)
-            : base(success, message)
+        public ApiResponse(bool success, T? data = default, string? message = null, string? error = null)
+            : base(success, message, error)
         {
             Data = data;
         }
@@ -41,8 +39,7 @@ namespace IstanbulCBS.Models
         public static ApiResponse<T> Ok(T data, string? message = null)
             => new ApiResponse<T>(true, data, message);
 
-        public static ApiResponse<T> Fail(string? message = null)
-            => new ApiResponse<T>(false, default, message);
+        public static ApiResponse<T> Fail(string? message = null, string? error = null)
+            => new ApiResponse<T>(false, default, message, error);
     }
-
 }
