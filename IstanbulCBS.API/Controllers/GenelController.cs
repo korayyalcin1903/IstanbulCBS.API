@@ -54,5 +54,41 @@ namespace IstanbulCBS.API.Controllers
                 throw new BusinessException(message: $"GenelController - {ex.Message}", logCategory: "Controller");
             }
         }
+
+        [HttpGet("mahalleler/{ilceId}")]
+        public async Task<ApiResponse<ResultMahalleListByIlceId[]>> GetMahalleListByIlceId(int ilceId)
+        {
+            try
+            {
+                var result = await _business.GetMahalleListByIlceId(ilceId);
+                if (result == null || result.Length == 0)
+                {
+                    return ApiResponse<ResultMahalleListByIlceId[]>.Fail("Mahalleler bulunamadı");
+                }
+                return ApiResponse<ResultMahalleListByIlceId[]>.Ok(result, "Mahalleler listelenmiştir");
+            }
+            catch (BusinessException ex)
+            {
+                throw new BusinessException(message: $"GenelController - {ex.Message}", logCategory: "Controller");
+            }
+        }
+
+        [HttpGet("mahalle/{mahalleId}")]
+        public async Task<ApiResponse<ResultMahalleByMahalleId>> GetMahalleByMahalleId(int mahalleId)
+        {
+            try
+            {
+                var result = await _business.GetMahalleByMahalleId(mahalleId);
+                if (result == null)
+                {
+                    return ApiResponse<ResultMahalleByMahalleId>.Fail("Mahalle bulunamadı");
+                }
+                return ApiResponse<ResultMahalleByMahalleId>.Ok(result, "Mahalle listelenmiştir");
+            }
+            catch (BusinessException ex)
+            {
+                throw new BusinessException(message: $"GenelController - {ex.Message}", logCategory: "Controller");
+            }
+        }
     }
 }

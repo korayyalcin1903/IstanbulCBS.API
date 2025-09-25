@@ -44,5 +44,32 @@ namespace IstanbulCBS.Business.Implementation
                 throw new BusinessException(message: $"GetIlceler - {ex.Message}", logCategory: "GenelBusiness");
             }
         }
+
+        public async Task<ResultMahalleByMahalleId> GetMahalleByMahalleId(int mahalleId)
+        {
+            try
+            {
+                ResultMahalleByMahalleId result = await _unitOfWork.GenelRepository.GetMahalleByMahalleId(mahalleId);
+                return result;
+            }
+            catch (BusinessException ex)
+            {
+                throw new BusinessException(message: $"GetMahalleByMahalleId - {ex.Message}", logCategory: "GenelBusiness");
+            }
+        }
+
+        public async Task<ResultMahalleListByIlceId[]> GetMahalleListByIlceId(int ilceId)
+        {
+            try
+            {
+                ResultMahalleListByIlceId[] result = await _unitOfWork.GenelRepository.GetMahalleListByIlceId(ilceId);
+                return result;
+
+            }
+            catch (BusinessException ex)
+            {
+                throw new BusinessException(message: $"GetMahalleListByIlceId - {ex.Message}", logCategory: "GenelBusiness");
+            }
+        }
     }
 }
