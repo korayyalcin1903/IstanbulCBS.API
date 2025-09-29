@@ -30,8 +30,10 @@ namespace IstanbulCBS.Data.Repositories.Implementation
 
         #region Repositories
         private readonly IGenelRepository? _genelRepository;
+        private readonly ICevreRepository? _cevreRepository;
 
         public IGenelRepository GenelRepository => _genelRepository ?? new GenelRepository(this);
+        public ICevreRepository CevreRepository => _cevreRepository ?? new CevreRepository(this);
 
         #endregion Repositories
 

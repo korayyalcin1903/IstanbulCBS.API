@@ -20,11 +20,11 @@ namespace IstanbulCBS.Business.Implementation
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ResultIlceById> GetIlceById(int id)
+        public async Task<string> GetIlceById(int id)
         {
             try
             {
-                ResultIlceById result = await _unitOfWork.GenelRepository.GetIlceById(id);
+                string result = await _unitOfWork.GenelRepository.GetIlceById(id);
                 return result;
             }
             catch (BusinessException ex)
@@ -45,11 +45,11 @@ namespace IstanbulCBS.Business.Implementation
             }
         }
 
-        public async Task<ResultMahalleByMahalleId> GetMahalleByMahalleId(int mahalleId)
+        public async Task<string> GetMahalleByMahalleId(int mahalleId)
         {
             try
             {
-                ResultMahalleByMahalleId result = await _unitOfWork.GenelRepository.GetMahalleByMahalleId(mahalleId);
+                string result = await _unitOfWork.GenelRepository.GetMahalleByMahalleId(mahalleId);
                 return result;
             }
             catch (BusinessException ex)

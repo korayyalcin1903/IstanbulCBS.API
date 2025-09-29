@@ -26,6 +26,7 @@ namespace IstanbulCBS.Data
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IGenelRepository, GenelRepository>();
+            services.AddScoped<ICevreRepository, CevreRepository>();
 
             return services;
         }

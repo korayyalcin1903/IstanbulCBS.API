@@ -14,6 +14,7 @@ namespace IstanbulCBS.Data.Repositories.Interfaces
 
         #region Repositories
         IGenelRepository GenelRepository { get; }
+        ICevreRepository CevreRepository { get; }
         #endregion Repositories
 
         void BeginTransaction();

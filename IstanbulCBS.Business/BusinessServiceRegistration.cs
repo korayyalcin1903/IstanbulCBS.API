@@ -14,6 +14,7 @@ namespace IstanbulCBS.Business
         public static IServiceCollection AddBusinessService(this IServiceCollection services)
         {
             services.AddScoped<IGenelBusiness, GenelBusiness>();
+            services.AddScoped<ICevreBusiness, CevreBusiness>();
             return services;
         }
     }

@@ -38,16 +38,16 @@ namespace IstanbulCBS.API.Controllers
 
 
         [HttpGet("ilce/{id}")]
-        public async Task<ApiResponse<ResultIlceById>> GetIlceById(int id)
+        public async Task<ApiResponse<string>> GetIlceById(int id)
         {
             try
             {
                 var result = await _business.GetIlceById(id);
                 if (result == null)
                 {
-                    return ApiResponse<ResultIlceById>.Fail("İlçe bulunamadı");
+                    return ApiResponse<string>.Fail("İlçe bulunamadı");
                 }
-                return ApiResponse<ResultIlceById>.Ok(result, "İlçe listelenmiştir");
+                return ApiResponse<string>.Ok(result, "İlçe listelenmiştir");
             }
             catch (BusinessException ex)
             {
@@ -74,16 +74,16 @@ namespace IstanbulCBS.API.Controllers
         }
 
         [HttpGet("mahalle/{mahalleId}")]
-        public async Task<ApiResponse<ResultMahalleByMahalleId>> GetMahalleByMahalleId(int mahalleId)
+        public async Task<ApiResponse<string>> GetMahalleByMahalleId(int mahalleId)
         {
             try
             {
                 var result = await _business.GetMahalleByMahalleId(mahalleId);
                 if (result == null)
                 {
-                    return ApiResponse<ResultMahalleByMahalleId>.Fail("Mahalle bulunamadı");
+                    return ApiResponse<string>.Fail("Mahalle bulunamadı");
                 }
-                return ApiResponse<ResultMahalleByMahalleId>.Ok(result, "Mahalle listelenmiştir");
+                return ApiResponse<string>.Ok(result, "Mahalle listelenmiştir");
             }
             catch (BusinessException ex)
             {

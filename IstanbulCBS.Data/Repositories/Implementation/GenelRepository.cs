@@ -21,20 +21,24 @@ namespace IstanbulCBS.Data.Repositories.Implementation
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ResultIlceById> GetIlceById(int id)
+        public async Task<string> GetIlceById(int id)
         {
             try
             {
                 string sql = @"
-                            SELECT 
-                                ogc_fid AS id,
-                                TRIM(SPLIT_PART(display_name, ',', 1)) AS ilceadi,
-                                ST_AsText(wkb_geometry) AS geometry
-                            FROM public.istanbul_ilceler
-                            WHERE ogc_fid = @id;
-                        ";
+                                SELECT json_build_object(
+                                            'type', 'Feature',
+                                            'geometry', ST_AsGeoJSON(ST_Transform(wkb_geometry,4326))::json,
+                                            'properties', json_build_object(
+                                                'id', ogc_fid,
+                                                'ilceAdi', TRIM(SPLIT_PART(display_name, ',', 1))
+                                            )
+                                        ) AS geojson
+                                from istanbul_ilceler
+                                WHERE ogc_fid = :id
+                            ";
 
-                var result = await _unitOfWork.Connection.QueryFirstOrDefaultAsync<ResultIlceById>(
+                var result = await _unitOfWork.Connection.QueryFirstOrDefaultAsync<string>(
                     sql:sql,
                     param: new { id },
                     transaction: _unitOfWork.Transaction,
@@ -69,14 +73,26 @@ namespace IstanbulCBS.Data.Repositories.Implementation
 
         }
 
-        public async Task<ResultMahalleByMahalleId> GetMahalleByMahalleId(int mahalleId)
+        public async Task<string> GetMahalleByMahalleId(int mahalleId)
         {
             try
             {
-                string sql = @"SELECT OGC_FID AS ID, TRIM(SPLIT_PART(DISPLAY_NAME, ',', 1)) AS MAHALLEADI, ST_ASTEXT (WKB_GEOMETRY) AS GEOMETRY
-                        FROM ISTANBUL_MAHALLELER
-                        WHERE OGC_FID = :mahalleId";
-                var result = await _unitOfWork.Connection.QueryFirstOrDefaultAsync<ResultMahalleByMahalleId>(
+                string sql = @"
+                        SELECT
+	                        JSON_BUILD_OBJECT(
+		                        'type', 'Feature',
+		                        'geometry', ST_ASGEOJSON (ST_Transform(wkb_geometry,4326))::JSON,
+		                        'properties', JSON_BUILD_OBJECT(
+			                                                'id',
+			                                                OGC_FID,
+			                                                'mahalleAdi',
+			                                                TRIM(SPLIT_PART(DISPLAY_NAME, ',', 1))
+		                                                )
+	                                                ) AS GEOJSON
+                            FROM ISTANBUL_MAHALLELER
+                            WHERE OGC_FID = :mahalleId
+                        ";
+                var result = await _unitOfWork.Connection.QueryFirstOrDefaultAsync<string>(
                     sql: sql,
                     param: new { mahalleId },
                     transaction: _unitOfWork.Transaction,
