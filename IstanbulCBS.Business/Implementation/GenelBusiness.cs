@@ -45,6 +45,19 @@ namespace IstanbulCBS.Business.Implementation
             }
         }
 
+        public async Task<string[]> GetIlcelerGeom()
+        {
+            try
+            {
+                string[] result = await _unitOfWork.GenelRepository.GetIlcelerGeom();
+                return result;
+            }
+            catch (BusinessException ex)
+            {
+                throw new BusinessException(message: $"GetIlcelerGeom - {ex.Message}", logCategory: "GenelBusiness");
+            }
+        }
+
         public async Task<string> GetMahalleByMahalleId(int mahalleId)
         {
             try

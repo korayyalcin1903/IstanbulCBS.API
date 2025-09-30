@@ -18,6 +18,24 @@ namespace IstanbulCBS.API.Controllers
             _business = business;
         }
 
+        [HttpGet("ilceler-geom")]
+        public async Task<ApiResponse<string[]>> GetIlcelerGeom()
+        {
+            try
+            {
+                var result = await _business.GetIlcelerGeom();
+                if (result == null)
+                {
+                    return ApiResponse<string[]>.Fail("İlçeler bulunamadı");
+                }
+                return ApiResponse<string[]>.Ok(result, "İlçeler listelenmiştir");
+            }
+            catch (BusinessException ex)
+            {
+                throw new BusinessException(message: $"GenelController - {ex.Message}", logCategory: "Controller");
+            }
+        }
+
         [HttpGet("ilceler")]
         public async Task<ApiResponse<ResultIlceler[]>> GetIlceler()
         {

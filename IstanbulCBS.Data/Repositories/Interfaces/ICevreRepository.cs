@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IstanbulCBS.Models.Models.CevreModels.Output;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace IstanbulCBS.Data.Repositories.Interfaces
 {
     public interface ICevreRepository
     {
-        public Task<string[]> GetParkVeYesilAlanByIlceId(int ilceId);
+        public Task<ResultParkVeYesilAlanByIlceId[]> GetParkVeYesilAlanByIlceId(int ilceId);
+        public Task<string> GetParkVeYesilAlanDetay(int id);
     }
 }

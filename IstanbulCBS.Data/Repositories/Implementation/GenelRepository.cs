@@ -73,6 +73,40 @@ namespace IstanbulCBS.Data.Repositories.Implementation
 
         }
 
+        public async Task<string[]> GetIlcelerGeom()
+        {
+            try
+            {
+                string sql = @"
+                                SELECT json_build_object(
+                                            'type', 'FeatureCollection',
+											'features', json_agg(
+												json_build_object(
+													'type', 'Feature',
+		                                            'geometry', ST_AsGeoJSON(ST_Transform(wkb_geometry,4326))::json,
+		                                            'properties', json_build_object(
+		                                                'id', ogc_fid,
+		                                                'ilceAdi', TRIM(SPLIT_PART(display_name, ',', 1))
+														)
+													)
+	                                            )
+	                                        ) AS geojson from istanbul_ilceler
+                            ";
+
+                var result = await _unitOfWork.Connection.QueryAsync<string>(
+                    sql: sql,
+                    transaction: _unitOfWork.Transaction,
+                    commandType: CommandType.Text
+                );
+
+                return result.ToArray();
+            }
+            catch (BusinessException e)
+            {
+                throw new BusinessException(message: $"GetIlcelerGeom - {e.Message}", logCategory: "GenelRepository");
+            }
+        }
+
         public async Task<string> GetMahalleByMahalleId(int mahalleId)
         {
             try

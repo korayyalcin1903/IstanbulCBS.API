@@ -8,5 +8,6 @@ namespace IstanbulCBS.Data.Repositories.Interfaces
         public Task<string> GetIlceById(int id);
         public Task<ResultMahalleListByIlceId[]> GetMahalleListByIlceId(int ilceId);
         public Task<string> GetMahalleByMahalleId(int mahalleId);
+        public Task<string[]> GetIlcelerGeom();
     }
 }

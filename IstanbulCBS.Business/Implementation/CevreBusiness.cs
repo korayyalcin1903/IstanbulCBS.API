@@ -2,6 +2,7 @@
 using IstanbulCBS.Data.Repositories.Implementation;
 using IstanbulCBS.Data.Repositories.Interfaces;
 using IstanbulCBS.Models.Exceptions;
+using IstanbulCBS.Models.Models.CevreModels.Output;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,24 @@ namespace IstanbulCBS.Business.Implementation
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<string[]> GetParkVeYesilAlanByIlceId(int ilceId)
+        public async Task<string> GetParkVeYesilAlanDetay(int id)
         {
             try
             {
-                string[] result = await _unitOfWork.CevreRepository.GetParkVeYesilAlanByIlceId(ilceId);
+                string result = await _unitOfWork.CevreRepository.GetParkVeYesilAlanDetay(id);
+                return result;
+            }
+            catch (BusinessException ex)
+            {
+                throw new BusinessException(message: $"GetParkVeYesilAlanDetay - {ex.Message}", logCategory: "CevreBusiness");
+            }
+        }
+
+        public async Task<ResultParkVeYesilAlanByIlceId[]> GetParkVeYesilAlanByIlceId(int ilceId)
+        {
+            try
+            {
+                ResultParkVeYesilAlanByIlceId[] result = await _unitOfWork.CevreRepository.GetParkVeYesilAlanByIlceId(ilceId);
                 return result;
             }
             catch (BusinessException ex)
